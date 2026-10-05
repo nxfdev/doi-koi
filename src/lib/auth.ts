@@ -2,7 +2,16 @@ import crypto from 'crypto';
 import { cookies } from 'next/headers';
 
 const ADMIN_COOKIE_NAME = 'dk_admin_session';
-const SECRET = process.env.ADMIN_AUTH_SECRET || 'doi_koi_default_secret_bogura_2026';
+
+function getSecret(): string {
+  const secret = process.env.ADMIN_AUTH_SECRET;
+  if (!secret) {
+    throw new Error(
+      'ADMIN_AUTH_SECRET is not set. Generate one with: openssl rand -hex 32'
+    );
+  }
+  return secret;
+}
 
 // Hash function
 export function hashPassword(password: string): string {
@@ -19,7 +28,7 @@ export function createSessionToken(email: string, role: string = 'ADMIN'): strin
   };
   const payloadStr = Buffer.from(JSON.stringify(payload)).toString('base64');
   const signature = crypto
-    .createHmac('sha256', SECRET)
+    .createHmac('sha256', getSecret())
     .update(payloadStr)
     .digest('hex');
   return `${payloadStr}.${signature}`;
@@ -31,7 +40,7 @@ export function verifySessionToken(token: string): { email: string; role: string
     if (!payloadStr || !signature) return null;
 
     const expectedSignature = crypto
-      .createHmac('sha256', SECRET)
+      .createHmac('sha256', getSecret())
       .update(payloadStr)
       .digest('hex');
 
