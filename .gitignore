@@ -1,0 +1,34 @@
+# dependencies
+/node_modules
+
+# next.js build output
+/.next
+/out
+next-env.d.ts.timestamp
+
+# production
+/build
+
+# misc
+.DS_Store
+Thumbs.db
+*.pem
+.vercel
+
+# debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (keep .env.example)
+.env
+.env*.local
+.env.production
+
+# local json datastore - regenerated from src/lib/cms-defaults.ts on boot.
+# never commit: contains admin credential hash + customer order data (PII)
+/data
+
+# typescript
+*.tsbuildinfo

@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-yellow: #FCE08B;
+  --brand-brown: #763C1E;
+  --brand-brown-dark: #502813;
+  --brand-brown-light: #96522C;
+  --brand-cream: #FFF9E6;
+  --brand-terracotta: #A34E26;
+  --brand-sand: #F4D272;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #FCE08B;
+    color: #763C1E;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    background-color: #FCE08B;
+    color: #763C1E;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #763C1E;
+    color: #FCE08B;
+  }
+}
+
+/* Hypnotic continuous rotation */
+@keyframes continuousRotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-hypnotic-spin {
+  animation: continuousRotation var(--doi-spin-duration, 70s) linear infinite;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* Route dash animation for Bogura to Dhaka line */
+@keyframes dashTravel {
+  0% {
+    stroke-dashoffset: 600;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -600;
+  }
+}
+
+.map-route-line {
+  stroke-dasharray: 8 6;
+  animation: dashTravel 12s linear infinite;
+}
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-hypnotic-spin {
+    animation: none !important;
+    transform: rotate(0deg) !important;
+  }
+  .map-route-line {
+    animation: none !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom scrollbar matching brand colors */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FCE08B;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #763C1E;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #502813;
+}
