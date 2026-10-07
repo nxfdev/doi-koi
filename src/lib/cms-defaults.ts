@@ -171,39 +171,33 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     muted: true,
   },
   heritage: {
-    heading: 'Centuries of Earthen Craft',
+    heading: 'The Artisan Process',
     intro:
-      'Bogura is celebrated as the undisputed birthplace of authentic Bengali doi. Each batch is a living tribute to the artisans whose hands shape the clay and slow-simmer the golden milk.',
+      'Centuries of slow wood fires, riverbed clay, and unhurried earthen mastery.',
     timeline: [
       {
-        phase: '01 — ORIGIN',
-        title: 'The Bogura Heritage',
+        phase: '01',
+        title: 'The Terracotta Shora',
         description:
-          'Originating in the verdant pastures of northern Bengal, Bogura doi has earned geographical prestige for its unmatched flavor, enriched by unique local micro-climate and heritage cultures.',
+          'Master potters sculpt unglazed red clay bowls from local river silt. The porous earthenware naturally wicks excess moisture, ensuring an exceptionally thick, dense curd.',
       },
       {
-        phase: '02 — THE CLAY',
-        title: 'Handcrafted Terracotta Shora',
+        phase: '02',
+        title: 'Wood-Fired Simmer',
         description:
-          'Local potters mold unglazed earthen pots from riverbed silt. The porous clay naturally absorbs excess whey, condensing the yogurt into a dense, creamy texture.',
+          'Pure whole cow milk is simmered slowly over wood embers for hours. Natural milk sugars caramelize deeply, forming the iconic golden-russet surface crust.',
       },
       {
-        phase: '03 — THE SIMMER',
-        title: 'Wood-Fired Slow Caramelization',
+        phase: '03',
+        title: 'Overnight Setting',
         description:
-          'Pure, whole cow milk is slowly reduced over tamarind-wood fires for 12 hours. Natural milk sugars caramelize into the signature reddish-brown crust called “Shor”.',
+          'The warm reduction is inoculated with traditional heirloom mother culture and rested inside straw chambers overnight, setting into velvety curd by dawn.',
       },
       {
-        phase: '04 — THE FERMENT',
-        title: 'Overnight Natural Setting',
+        phase: '04',
+        title: 'Earthen Dispatch',
         description:
-          'Inoculated with generations-old mother culture, the warm milk rests overnight in straw-insulated chambers, emerging as solid, spoon-thick doi by dawn.',
-      },
-      {
-        phase: '05 — YOUR DOORSTEP',
-        title: 'Fresh Journey to Dhaka & Beyond',
-        description:
-          'Carefully dispatched in insulated containers directly from Bogura kitchens to dining tables in Dhaka and across Bangladesh.',
+          'Sealed in breathable earthenware and packed in temperature-controlled parcels, dispatched fresh from artisanal kilns straight to your table.',
       },
     ],
   },

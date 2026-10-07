@@ -11,17 +11,28 @@ interface FooterProps {
 
 export function Footer({ content }: FooterProps) {
   return (
-    <footer className="w-full bg-[#502813] text-[#FCE08B] border-t border-[#763C1E]/30 py-16 sm:py-20 px-6 sm:px-8 lg:px-12">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <footer className="w-full bg-[#502813] text-[#FCE08B] border-t border-[#763C1E]/30 py-16 sm:py-20 px-6 sm:px-10 lg:px-16">
+      <div className="w-full max-w-[1550px] mx-auto space-y-16">
         {/* Top Tier: Logo & Tagline */}
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#FCE08B]/20 pb-12 gap-8">
           <div>
-            <div className="relative h-10 w-48 mb-4">
-              <Image
-                src="/assets/brand/logo.png"
-                alt="DOI KOI"
-                fill
-                className="object-contain object-left brightness-200 contrast-200"
+            <div
+              className="relative flex items-center h-12 w-48 overflow-hidden mb-4"
+              role="img"
+              aria-label="DOI KOI"
+            >
+              <div
+                className="relative w-full h-[492%] -my-[196%] shrink-0 bg-[#FCE08B]"
+                style={{
+                  maskImage: 'url(/assets/brand/logo.png)',
+                  WebkitMaskImage: 'url(/assets/brand/logo.png)',
+                  maskSize: 'contain',
+                  WebkitMaskSize: 'contain',
+                  maskPosition: 'left center',
+                  WebkitMaskPosition: 'left center',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskRepeat: 'no-repeat',
+                }}
               />
             </div>
             <p className="text-sm font-semibold tracking-widest uppercase text-[#FCE08B]/80">

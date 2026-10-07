@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { Volume2, VolumeX } from 'lucide-react';
 
 interface AboutVideoPlayerProps {
   src: string;
@@ -9,29 +9,53 @@ interface AboutVideoPlayerProps {
   autoplay?: boolean;
   loop?: boolean;
   muted?: boolean;
+  className?: string;
 }
 
 export function AboutVideoPlayer({
   src,
   poster,
-  autoplay = false,
   loop = true,
-  muted = true,
+  className = 'aspect-video',
 }: AboutVideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(autoplay);
-  const [isMuted, setIsMuted] = useState(muted);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
 
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.play().catch(() => {});
-      setIsPlaying(true);
-    }
-  };
+  useEffect(() => {
+    const video = videoRef.current;
+    const container = containerRef.current;
+    if (!video || !container) return;
+
+    // Viewport-based natural autoplay on scroll
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Natural resume without restarting
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                // Browser prevented unmuted autoplay or power-saving; ignore gracefully
+              });
+            }
+          } else {
+            // Pause when scrolled out of view to conserve resources
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.25, // Begins playing once 25% enters viewport
+      }
+    );
+
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -42,52 +66,30 @@ export function AboutVideoPlayer({
 
   return (
     <div
-      onClick={togglePlay}
-      className="relative w-full aspect-video bg-[#502813] border border-[#763C1E]/20 overflow-hidden cursor-pointer group shadow-sm"
+      ref={containerRef}
+      className={`relative w-full h-full bg-[#502813] overflow-hidden ${className}`}
     >
       <video
         ref={videoRef}
         src={src}
         poster={poster}
-        autoPlay={autoplay}
         loop={loop}
         muted={isMuted}
         playsInline
         preload="metadata"
-        className="w-full h-full object-cover"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
+        className="w-full h-full object-cover pointer-events-none"
       />
 
-      {/* Cinematic Vignette Overlay */}
-      <div className="absolute inset-0 bg-[#763C1E]/10 group-hover:bg-[#763C1E]/5 transition-colors pointer-events-none" />
-
-      {/* Custom Minimal Controls */}
-      <div className="absolute bottom-4 right-4 flex items-center gap-2 z-20">
+      {/* Subtle, non-intrusive sound toggle in bottom corner */}
+      <div className="absolute bottom-4 right-4 z-20">
         <button
           onClick={toggleMute}
-          className="p-2.5 bg-[#763C1E]/80 hover:bg-[#763C1E] text-[#FCE08B] backdrop-blur-xs transition-colors"
+          className="p-2 bg-[#763C1E]/80 hover:bg-[#763C1E] text-[#FCE08B] backdrop-blur-xs transition-colors focus-visible:ring-2 focus-visible:ring-[#FCE08B]"
           aria-label={isMuted ? 'Unmute video' : 'Mute video'}
         >
           {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
         </button>
-        <button
-          onClick={togglePlay}
-          className="p-2.5 bg-[#763C1E]/80 hover:bg-[#763C1E] text-[#FCE08B] backdrop-blur-xs transition-colors"
-          aria-label={isPlaying ? 'Pause video' : 'Play video'}
-        >
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-        </button>
       </div>
-
-      {/* Floating Center Play Button When Paused */}
-      {!isPlaying && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-16 h-16 border border-[#FCE08B] bg-[#763C1E]/85 text-[#FCE08B] flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
-            <Play className="w-6 h-6 ml-1 fill-current" />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

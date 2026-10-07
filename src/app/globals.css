@@ -51,9 +51,10 @@
 }
 
 .hero-hypnotic-spin {
-  animation: continuousRotation var(--doi-spin-duration, 70s) linear infinite;
+  animation: continuousRotation var(--doi-spin-duration, 28s) linear infinite;
   will-change: transform;
   transform-origin: center center;
+  backface-visibility: hidden;
 }
 
 /* Route dash animation for Bogura to Dhaka line */

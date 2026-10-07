@@ -2,66 +2,41 @@
 
 import React from 'react';
 import { SiteContent } from '@/lib/types';
-import { BoguraMap } from './BoguraMap';
 import { HeritageTimeline } from './HeritageTimeline';
 
 interface HeritageSectionProps {
   content?: SiteContent['heritage'];
-  mapContent?: SiteContent['map'];
 }
 
-export function HeritageSection({ content, mapContent }: HeritageSectionProps) {
-  const heading = content?.heading || 'Centuries of Earthen Craft';
-  const intro =
-    content?.intro ||
-    'Bogura is celebrated as the undisputed birthplace of authentic Bengali doi. Each batch is a living tribute to the master artisans whose hands shape the clay and slow-simmer the golden milk.';
-
+/**
+ * HeritageSection (Page 4) — The Artisan Process.
+ *
+ * Design Direction:
+ * - Pure craftsmanship storytelling like a cinematic heritage documentary.
+ * - Removed all geographic labels ("Rajshahi Division", "Bogura District", "Land of Origin", etc.).
+ * - Removed decorative framing boxes, cards, and artificial lines.
+ * - Confident, spacious typography on #763C1E brown canvas with #FCE08B cream text.
+ */
+export function HeritageSection({ content }: HeritageSectionProps) {
   return (
     <section
-      id="heritage"
-      className="w-full bg-[#FCE08B] text-[#763C1E] py-24 sm:py-32 px-6 sm:px-8 lg:px-12 border-t border-[#763C1E]/15"
+      id="process"
+      className="w-full bg-[#763C1E] text-[#FCE08B] pt-8 sm:pt-14 pb-24 sm:pb-32 lg:pb-40 px-6 sm:px-10 lg:px-16"
+      aria-label="The Artisan Craft Process"
     >
-      <div className="max-w-7xl mx-auto space-y-20">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#763C1E]/20 pb-8 gap-6">
-          <div className="max-w-2xl">
-            <span className="text-xs font-mono tracking-widest text-[#763C1E]/60 uppercase block mb-3">
-              03 — THE HERITAGE OF BOGURA
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight uppercase leading-none">
-              {heading}
-            </h2>
-          </div>
-          <p className="text-base sm:text-lg text-[#763C1E]/90 max-w-md font-normal leading-relaxed md:text-right">
-            {intro}
+      <div className="w-full max-w-[1550px] mx-auto space-y-16 sm:space-y-24">
+        {/* ── Section Title: Minimal, Cinematic ── */}
+        <div className="max-w-2xl space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight uppercase leading-none text-[#FCE08B]">
+            The Artisan Process
+          </h2>
+          <p className="text-base sm:text-lg text-[#FCE08B]/75 font-normal leading-relaxed">
+            Centuries of slow wood fires, riverbed clay, and unhurried earthen mastery.
           </p>
         </div>
 
-        {/* 04 — Minimal Editorial Geographic Map */}
-        <div className="space-y-4">
-          <span className="text-xs font-mono tracking-widest text-[#763C1E]/60 uppercase block">
-            04 — THE JOURNEY FROM BOGURA
-          </span>
-          <BoguraMap
-            originName={mapContent?.originName}
-            originDetail={mapContent?.originDetail}
-            destinationName={mapContent?.destinationName}
-            destinationDetail={mapContent?.destinationDetail}
-          />
-        </div>
-
-        {/* Heritage Craft Progression Timeline */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-mono tracking-widest text-[#763C1E]/60 uppercase">
-              The 5-Stage Artisanal Process
-            </span>
-            <span className="text-xs text-[#763C1E]/60 uppercase tracking-widest font-mono">
-              Pure • Unaltered • Slow-Crafted
-            </span>
-          </div>
-          <HeritageTimeline steps={content?.timeline} />
-        </div>
+        {/* ── Craft Progression: Spacious, Minimal, Unboxed ── */}
+        <HeritageTimeline steps={content?.timeline} />
       </div>
     </section>
   );

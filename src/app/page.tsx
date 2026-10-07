@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/hero/HeroSection';
 import { AboutSection } from '@/components/about/AboutSection';
+import { BangladeshMap } from '@/components/heritage/BangladeshMap';
 import { HeritageSection } from '@/components/heritage/HeritageSection';
 import { ProductCatalogue } from '@/components/products/ProductCatalogue';
 import { ProductStorySection } from '@/components/home/ProductStorySection';
@@ -27,16 +28,16 @@ export default async function HomePage() {
         <HeroSection content={content.hero} />
       </div>
 
-      {/* 02 — ABOUT DOI KOI */}
+      {/* 02 — ABOUT (Full-bleed 16:9 video + minimal text overlay) */}
       <AboutSection content={content.about} />
 
-      {/* 03 & 04 — THE HERITAGE OF BOGURA & THE JOURNEY MAP */}
-      <HeritageSection
-        content={content.heritage}
-        mapContent={content.map}
-      />
+      {/* 03 — BANGLADESH MAP (Large vector map on brown field) */}
+      <BangladeshMap />
 
-      {/* 05 — OUR DOI / PRODUCTS (The 4 Authentic Selections) */}
+      {/* 04 — THE ARTISAN PROCESS (Craftsmanship only) */}
+      <HeritageSection content={content.heritage} />
+
+      {/* 05 — OUR DOI / PRODUCTS (The Menu) */}
       <ProductCatalogue products={products} />
 
       {/* 06 — PRODUCT STORY & CULINARY PURITY */}

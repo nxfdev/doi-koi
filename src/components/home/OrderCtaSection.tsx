@@ -11,12 +11,8 @@ export function OrderCtaSection({
   tagline = 'Bogura at your doorsteps',
 }: OrderCtaSectionProps) {
   return (
-    <section className="w-full bg-[#FCE08B] text-[#763C1E] py-24 sm:py-32 px-6 sm:px-8 lg:px-12 border-t border-[#763C1E]/15">
-      <div className="max-w-4xl mx-auto text-center space-y-8">
-        <span className="text-xs font-mono tracking-widest text-[#763C1E]/60 uppercase block">
-          07 — DIRECT DISPATCH
-        </span>
-
+    <section className="w-full bg-[#FCE08B] text-[#763C1E] py-24 sm:py-32 px-6 sm:px-10 lg:px-16 border-t border-[#763C1E]/15">
+      <div className="w-full max-w-5xl mx-auto text-center space-y-8">
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight leading-none text-[#763C1E]">
           {tagline}
         </h2>

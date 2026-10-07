@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ShoppingBag, User } from 'lucide-react';
+import { Menu, X, ShoppingBag } from 'lucide-react';
 import { useCart } from '../cart/CartProvider';
 
 interface NavbarProps {
@@ -29,65 +29,70 @@ export function Navbar({ isTransparent = true }: NavbarProps) {
             : 'bg-[#FCE08B] border-b border-[#763C1E]/10'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 flex items-center justify-between">
-          {/* Desktop Left: Logo */}
-          <div className="flex-1 hidden md:flex items-center">
+        <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-6 sm:py-8 flex items-center justify-between">
+          {/* Desktop Left: Bold, Enlarged Logo (500% visual scale) */}
+          <div className="hidden md:flex items-center">
             <Link
               href="/"
-              className="inline-block relative h-10 w-44 hover:opacity-90 transition-opacity"
+              className="group relative flex items-center h-12 sm:h-14 lg:h-16 w-44 sm:w-52 lg:w-60 overflow-hidden hover:opacity-90 transition-opacity focus-visible:ring-2 focus-visible:ring-[#763C1E]"
               aria-label="DOI KOI Homepage"
             >
-              <Image
-                src="/assets/brand/logo.png"
-                alt="DOI KOI — Bogura at your doorsteps"
-                fill
-                priority
-                className="object-contain object-left scale-125 origin-left"
-              />
+              {/* Geometric crop wrapper: centers and scales out empty whitespace to render the wordmark 500% larger */}
+              <div className="relative w-full h-[492%] -my-[196%] shrink-0 pointer-events-none">
+                <Image
+                  src="/assets/brand/logo.png"
+                  alt="DOI KOI — Bogura at your doorsteps"
+                  fill
+                  priority
+                  className="object-contain object-left"
+                />
+              </div>
             </Link>
           </div>
 
-          {/* Mobile Center: Logo */}
-          <div className="flex-1 md:hidden flex justify-center pl-8">
+          {/* Mobile Left: Proportionally scaled enlarged Logo */}
+          <div className="md:hidden flex items-center">
             <Link
               href="/"
-              className="inline-block relative h-8 w-36 hover:opacity-90 transition-opacity"
+              className="relative flex items-center h-10 w-36 overflow-hidden hover:opacity-90 transition-opacity focus-visible:ring-2 focus-visible:ring-[#763C1E]"
               aria-label="DOI KOI Homepage"
             >
-              <Image
-                src="/assets/brand/logo.png"
-                alt="DOI KOI — Bogura at your doorsteps"
-                fill
-                priority
-                className="object-contain object-center scale-125"
-              />
+              <div className="relative w-full h-[492%] -my-[196%] shrink-0 pointer-events-none">
+                <Image
+                  src="/assets/brand/logo.png"
+                  alt="DOI KOI — Bogura at your doorsteps"
+                  fill
+                  priority
+                  className="object-contain object-left"
+                />
+              </div>
             </Link>
           </div>
 
-          {/* Desktop Right: Minimal Navigation */}
+          {/* Desktop Right: Minimal Geometric Navigation */}
           <nav
             aria-label="Main Navigation"
-            className="hidden md:flex items-center space-x-8 text-[#763C1E] tracking-widest text-xs font-semibold"
+            className="hidden md:flex items-center space-x-10 lg:space-x-12 text-[#763C1E] tracking-[0.2em] text-xs font-semibold"
           >
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="relative py-1 hover:opacity-75 transition-opacity"
+                className="relative py-1 hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[#763C1E]"
               >
                 {link.label}
               </Link>
             ))}
 
-            {/* CART Button */}
+            {/* CART Button with badge */}
             <button
               onClick={openCart}
-              className="relative py-1 flex items-center gap-1.5 hover:opacity-75 transition-opacity uppercase font-semibold"
+              className="relative py-1 flex items-center gap-2 hover:opacity-70 transition-opacity uppercase font-semibold focus-visible:ring-2 focus-visible:ring-[#763C1E]"
               aria-label={`Open shopping cart with ${itemCount} items`}
             >
               <span>CART</span>
               {itemCount > 0 && (
-                <span className="inline-flex items-center justify-center bg-[#763C1E] text-[#FCE08B] text-[10px] font-bold px-1.5 py-0.5 rounded-xs leading-none">
+                <span className="inline-flex items-center justify-center bg-[#763C1E] text-[#FCE08B] text-[10px] font-bold px-1.5 py-0.5 font-mono leading-none">
                   {itemCount}
                 </span>
               )}
@@ -96,30 +101,31 @@ export function Navbar({ isTransparent = true }: NavbarProps) {
             {/* ACCOUNT Link */}
             <Link
               href="/account"
-              className="py-1 hover:opacity-75 transition-opacity"
+              className="py-1 hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[#763C1E]"
             >
               ACCOUNT
             </Link>
           </nav>
 
           {/* Mobile Right: Hamburger Menu & Cart Quick Icon */}
-          <div className="md:hidden flex items-center space-x-3 text-[#763C1E]">
+          <div className="md:hidden flex items-center space-x-4 text-[#763C1E]">
             <button
               onClick={openCart}
-              className="p-1.5 relative hover:opacity-80"
-              aria-label="Cart"
+              className="p-2 relative hover:opacity-80 focus-visible:ring-2 focus-visible:ring-[#763C1E]"
+              aria-label="Shopping Cart"
             >
               <ShoppingBag className="w-5 h-5 stroke-[1.8]" />
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#763C1E] text-[#FCE08B] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-[#763C1E] text-[#FCE08B] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center font-mono">
                   {itemCount}
                 </span>
               )}
             </button>
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="p-1.5 text-[#763C1E] hover:opacity-80 focus:outline-none"
+              className="p-2 text-[#763C1E] hover:opacity-80 focus-visible:ring-2 focus-visible:ring-[#763C1E]"
               aria-label="Open navigation menu"
+              aria-expanded={mobileMenuOpen}
             >
               <Menu className="w-6 h-6 stroke-[1.8]" />
             </button>
@@ -135,18 +141,20 @@ export function Navbar({ isTransparent = true }: NavbarProps) {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="relative h-8 w-32"
+              className="relative flex items-center h-10 w-36 overflow-hidden"
             >
-              <Image
-                src="/assets/brand/logo.png"
-                alt="DOI KOI"
-                fill
-                className="object-contain object-left scale-125 origin-left"
-              />
+              <div className="relative w-full h-[492%] -my-[196%] shrink-0">
+                <Image
+                  src="/assets/brand/logo.png"
+                  alt="DOI KOI"
+                  fill
+                  className="object-contain object-left"
+                />
+              </div>
             </Link>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 border border-[#763C1E] text-[#763C1E] hover:bg-[#763C1E] hover:text-[#FCE08B] transition-colors"
+              className="p-2 border border-[#763C1E] text-[#763C1E] hover:bg-[#763C1E] hover:text-[#FCE08B] transition-colors focus-visible:ring-2 focus-visible:ring-[#763C1E]"
               aria-label="Close menu"
             >
               <X className="w-6 h-6" />
