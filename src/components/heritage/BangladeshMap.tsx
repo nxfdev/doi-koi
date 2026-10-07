@@ -33,7 +33,6 @@ export function BangladeshMap() {
       >
         <BangladeshVectorMap
           className="w-full select-none pointer-events-none drop-shadow-sm"
-          style={{ height: 'auto', display: 'block' }}
         />
       </div>
     </section>
